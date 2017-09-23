@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Auth;
+use App\users;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -19,14 +22,15 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
+    public function redirectTo(){
+        if(Auth::user()->status==0){
+            return '/';
+        }
+        else{
+            return '/admin/manageuser';
+        }
+    }
+ 
     /**
      * Create a new controller instance.
      *
